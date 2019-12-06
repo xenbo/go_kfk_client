@@ -36,8 +36,8 @@ func Cgo_NewConsumer(addr string) *Cgo_Consumer {
 	return (*Cgo_Consumer)(p)
 }
 
-func Cgo_add_consume_topic(topic string, c *Cgo_Consumer) {
-	C.add_consume_topic((*C.Consumer_t)(c), C.CString(topic))
+func Cgo_add_consume_topic(topic string, offset int64, c *Cgo_Consumer) {
+	C.add_consume_topic((*C.Consumer_t)(c), C.CString(topic) , C.longlong(offset))
 }
 
 func Cgo_start_consumer(c *Cgo_Consumer) {

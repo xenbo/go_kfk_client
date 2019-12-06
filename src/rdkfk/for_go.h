@@ -15,7 +15,7 @@ Consumer_t *create_consumer(const char *kfk_addr);
 
 void add_produce_topic(Producer_t *p, const char *topic);
 
-void add_consume_topic(Consumer_t *c, const char *topic);
+void add_consume_topic(Consumer_t *c, const char *topic,long long offset);
 
 void send_msg(Producer_t *p, const char *msg, const char *topic);
 
@@ -35,5 +35,7 @@ int storage_getkey(Storage_t *db, const char *key, int klen ,  void *val ,int vl
 
 //log
 void init();
+
+
 
 #endif //KFKCLIENT_FOR_GO_H
