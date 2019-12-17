@@ -1,14 +1,14 @@
 package main
 
 import (
-	"rdkfk"
+	rdkfk "./rdkfk"
 	"time"
 )
 
 func main() {
 	rdkfk.Cgo_init()
 
-	c := rdkfk.Cgo_NewConsumer("127.0.0.1")
+	c := rdkfk.Cgo_NewConsumer("192.168.1.172")
 	rdkfk.Cgo_add_consume_topic("test_topicxxx", 10000000, c)
 	rdkfk.Cgo_add_consume_topic("test_topicxxx1", 10000000, c)
 	rdkfk.Cgo_add_consume_topic("test_topicxxx2", 10000000, c)
@@ -16,7 +16,7 @@ func main() {
 
 	time.Sleep(2 * time.Second)
 
-	p := rdkfk.Cgo_NewProducer("127.0.0.1")
+	p := rdkfk.Cgo_NewProducer("192.168.1.172")
 	rdkfk.Cgo_add_produce_topic("test_topicxxx", p)
 	rdkfk.Cgo_add_produce_topic("test_topicxxx1", p)
 	rdkfk.Cgo_add_produce_topic("test_topicxxx2", p)
