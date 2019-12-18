@@ -1,2 +1,2 @@
 build librdkafka.a
-from github.com
+from https://github.com/xenbo/kfkclient/tree/master
