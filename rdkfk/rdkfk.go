@@ -2,17 +2,17 @@ package rdkfk
 
 /*
 #cgo CXXFLAGS: -std=c++14
-#cgo LDFLAGS: -L../lib -lrdkafka -lssl -lcrypto -ldl -lm -lz -lstdc++ -lpthread
+#cgo LDFLAGS: -L ../lib -lrdkafka -lssl -lcrypto -ldl -lm -lz -lstdc++ -lpthread
 #include "for_go.h"
 */
 import "C"
-import (
-	"fmt"
-)
+
+type Cgo_bak_func func(offset int64, topic string, msg string)
 
 type Cgo_Producer C.Producer_t
 type Cgo_Consumer C.Consumer_t
 
+var On_ConsumMsg Cgo_bak_func
 
 func Cgo_NewProducer(addr string) *Cgo_Producer {
 	p := C.create_producer(C.CString(addr))
@@ -37,7 +37,7 @@ func Cgo_NewConsumer(addr string) *Cgo_Consumer {
 }
 
 func Cgo_add_consume_topic(topic string, offset int64, c *Cgo_Consumer) {
-	C.add_consume_topic((*C.Consumer_t)(c), C.CString(topic) , C.longlong(offset))
+	C.add_consume_topic((*C.Consumer_t)(c), C.CString(topic), C.longlong(offset))
 }
 
 func Cgo_start_consumer(c *Cgo_Consumer) {
@@ -46,16 +46,15 @@ func Cgo_start_consumer(c *Cgo_Consumer) {
 
 //export Cgo_comsumer_callback
 func Cgo_comsumer_callback(topic *C.char, offset C.longlong, msg *C.char, len C.int) {
-	fmt.Println(C.GoString(topic))
-	fmt.Println(offset)
-	fmt.Println(C.GoStringN(msg, len))
-	//fmt.Println(len)
+	_topic := C.GoString(topic)
+	_offset := int64(offset)
+	_msg := C.GoStringN(msg, len)
+	On_ConsumMsg(_offset, _topic, _msg)
 }
 
-func Cgo_init()  {
+func Cgo_init() {
 	C.init()
 }
-
 
 //type Cgo_db C.Storage_t
 //

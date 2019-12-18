@@ -5,8 +5,16 @@ import (
 	"time"
 )
 
+func callbak(offset int64, topic string, msg string){
+	fmt.Println(offset)
+	fmt.Println(topic)
+	fmt.Println(msg)
+}
+
 func main() {
 	rdkfk.Cgo_init()
+
+	rdkfk.On_ConsumMsg = callbak
 
 	c := rdkfk.Cgo_NewConsumer("192.168.1.172")
 	rdkfk.Cgo_add_consume_topic("test_topicxxx", 10000000, c)
