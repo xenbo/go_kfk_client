@@ -1,8 +1,9 @@
 package main
 
 import (
-	rdkfk "github.com/xenbo/go_kfk_client/rdkfk"
+	"fmt"
 	"time"
+	rdkfk "github.com/xenbo/go_kfk_client/rdkfk"
 )
 
 func callbak(offset int64, topic string, msg string){
