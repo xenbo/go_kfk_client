@@ -13,6 +13,8 @@ Producer_t *create_producer(const char *kfk_addr);
 
 Consumer_t *create_consumer(const char *kfk_addr);
 
+unsigned long long get_consumer_hash_code(Consumer_t *c);
+
 void add_produce_topic(Producer_t *p, const char *topic);
 
 void add_consume_topic(Consumer_t *c, const char *topic,long long offset);

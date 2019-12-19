@@ -6,13 +6,15 @@ package rdkfk
 #include "for_go.h"
 */
 import "C"
+import "sync"
 
 type Cgo_bak_func func(offset int64, topic string, msg string)
 
 type Cgo_Producer C.Producer_t
 type Cgo_Consumer C.Consumer_t
 
-var On_ConsumMsg Cgo_bak_func
+var On_ConsumMsg = make(map[uint64]Cgo_bak_func)
+var fuc_lock sync.Mutex
 
 func Cgo_NewProducer(addr string) *Cgo_Producer {
 	p := C.create_producer(C.CString(addr))
@@ -31,9 +33,16 @@ func Cgo_flush(p *Cgo_Producer) {
 	C.flush((*C.Producer_t)(p))
 }
 
-func Cgo_NewConsumer(addr string) *Cgo_Consumer {
+func Cgo_NewConsumer(addr string , fuc_ Cgo_bak_func) *Cgo_Consumer {
 	p := C.create_consumer(C.CString(addr))
+	fuc_lock.Lock()
+	On_ConsumMsg[Cgo_get_consumer_hash_code((*Cgo_Consumer)(p))] = fuc_
+	fuc_lock.Unlock()
 	return (*Cgo_Consumer)(p)
+}
+
+func Cgo_get_consumer_hash_code( c *Cgo_Consumer) uint64  {
+	return uint64(C.get_consumer_hash_code((*C.Consumer_t)(c)))
 }
 
 func Cgo_add_consume_topic(topic string, offset int64, c *Cgo_Consumer) {
@@ -45,11 +54,18 @@ func Cgo_start_consumer(c *Cgo_Consumer) {
 }
 
 //export Cgo_comsumer_callback
-func Cgo_comsumer_callback(topic *C.char, offset C.longlong, msg *C.char, len C.int) {
+func Cgo_comsumer_callback(topic *C.char, offset C.longlong, msg *C.char, len C.int, consumer_hashcode C.ulonglong) {
 	_topic := C.GoString(topic)
 	_offset := int64(offset)
 	_msg := C.GoStringN(msg, len)
-	On_ConsumMsg(_offset, _topic, _msg)
+	_hashcode := uint64(consumer_hashcode)
+
+	fuc_lock.Lock()
+	fuc, ok := On_ConsumMsg[_hashcode]
+	fuc_lock.Unlock()
+	if ok {
+		fuc(_offset, _topic, _msg)
+	}
 }
 
 func Cgo_init() {
