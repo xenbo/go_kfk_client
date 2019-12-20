@@ -19,7 +19,8 @@ func main() {
 	rdkfk.Cgo_init()
 
 	c := rdkfk.Cgo_NewConsumer("192.168.1.172",callbak)
-	rdkfk.Cgo_add_consume_topic("send_push_msg", 0, c)
+	rdkfk.Cgo_add_consume_topic("test", 200000, c)
+	rdkfk.Cgo_add_consume_topic("test_topic", 200000, c)
 
 	go rdkfk.Cgo_start_consumer(c)
 

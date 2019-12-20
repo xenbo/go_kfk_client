@@ -6,7 +6,9 @@ package rdkfk
 #include "for_go.h"
 */
 import "C"
-import "unsafe"
+import (
+	"unsafe"
+)
 
 type Cgo_db C.Storage_t
 
@@ -21,7 +23,9 @@ func Cgo_setkey(db *Cgo_db, key string, val string) {
 
 func Cgo_getkey(db *Cgo_db, key string) string {
 	var bytes = make([]byte, 1024)
-	C.storage_getkey((*C.Storage_t)(db), C.CString(key), C.int(len(key)), unsafe.Pointer(&bytes[0]), C.int(len(bytes)))
-	val := (*string)(unsafe.Pointer(&bytes))
-	return *val
+	len := C.storage_getkey((*C.Storage_t)(db), C.CString(key), C.int(len(key)), unsafe.Pointer(&bytes[0]), C.int(len(bytes)))
+	if len > 0 {
+		return string(bytes[0:int32(len)])
+	}
+	return ""
 }
