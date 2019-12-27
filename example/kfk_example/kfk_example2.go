@@ -16,7 +16,7 @@ func callbak(offset int64, topic string, msg string) {
 
 
 func main() {
-	rdkfk.Cgo_init()
+	rdkfk.Cgo_init("192.168.1.172")
 
 	c := rdkfk.Cgo_NewConsumer("192.168.1.172",callbak)
 	rdkfk.Cgo_add_consume_topic("test", 200000, c)

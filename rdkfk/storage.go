@@ -1,14 +1,12 @@
 package rdkfk
 
 /*
-#cgo CXXFLAGS: -std=c++14
-#cgo LDFLAGS: -L../lib -lrdkafka -lssl -lcrypto -ldl -lm -lz -lstdc++ -lpthread
+#cgo CXXFLAGS: -std=c++17
+#cgo LDFLAGS: -lsyrdkafka -lssl -lcrypto -ldl -lm -lz -lstdc++ -lstdc++fs -lpthread
 #include "for_go.h"
 */
 import "C"
-import (
-	"unsafe"
-)
+import "unsafe"
 
 type Cgo_db C.Storage_t
 

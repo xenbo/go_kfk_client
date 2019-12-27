@@ -8,7 +8,7 @@ import (
 
 func main() {
 
-	rdkfk.Cgo_init()
+	rdkfk.Cgo_init("192.168.1.1")
 
 	db := rdkfk.Cgo_createdb("testdb", 100)
 

@@ -1,8 +1,8 @@
 package rdkfk
 
 /*
-#cgo CXXFLAGS: -std=c++14
-#cgo LDFLAGS: -L ../lib -lrdkafka -lssl -lcrypto -ldl -lm -lz -lstdc++ -lpthread
+#cgo CXXFLAGS: -std=c++17
+#cgo LDFLAGS:  -lsyrdkafka -lssl -lcrypto -ldl -lm -lz -lstdc++ -lstdc++fs -lpthread
 #include "for_go.h"
 */
 import "C"
@@ -68,8 +68,8 @@ func Cgo_comsumer_callback(topic *C.char, offset C.longlong, msg *C.char, len C.
 	}
 }
 
-func Cgo_init() {
-	C.init()
+func Cgo_init(addr string) {
+	C.init(C.CString(addr))
 }
 
 //type Cgo_db C.Storage_t
