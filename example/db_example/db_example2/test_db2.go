@@ -8,7 +8,9 @@ import (
 
 func main() {
 
-	rdkfk.CgoInit("192.168.1.1")
+	glc:= rdkfk.GlobeCleaner{}
+	glc.SetKafkaAddr("192.168.1.1")
+	glc.Init()
 
 	db := rdkfk.OperateDb{}
 	db.CreateDb("testdb", 100)
