@@ -1,8 +1,6 @@
 package rdkfk
 
 /*
-#cgo CXXFLAGS: -std=c++17
-#cgo LDFLAGS: -L ../lib -lsyrdkafka -lssl -lcrypto -ldl -lm -lz -lstdc++ -lstdc++fs -lpthread
 #include "for_go.h"
 */
 import "C"

@@ -1,0 +1,9 @@
+2020-02-24 17.31.35[INFO][int Producer::create_producer(std::string)]127.0.0.1
+2020-02-24 17.31.35[INFO][int Producer::add_produce_topic(const std::string &)]test_topic
+2020-02-24 17.31.35[INFO][Storage_t *get_db(const char *, unsigned int)]apath:topic_cache/test_topic
+2020-02-24 17.31.35[WARN][int opdb::getkey(const std::string &, std::string *)]MDB_NOTFOUND:~~zztest_topic
+2020-02-24 17.31.35[INFO][int opdb::getkey(const std::string &, std::string *)]~~zztest_topic,
+2020-02-24 17.31.35[WARN][int storage_getkey(Storage_t *, const char *, int, void *, int)]rc:-30798,key:~~zztest_topic
+2020-02-24 17.31.35[INFO][int opdb::setkey0(const std::string &, const std::string &)]test_topic00000000000000000000,xxxxxxxxxxxxxxxxxxxxx
+2020-02-24 17.31.35[INFO][int opdb::setkey0(const std::string &, const std::string &)]~~zztest_topic,1
+2020-02-24 17.31.35[INFO][int Producer::send_msg(const std::string &, std::string, long long)]test_topic,xxxxxxxxxxxxxxxxxxxxx,0
