@@ -1,12 +1,12 @@
-# go_kfk_client
-
+# go_kfk_client need libsyrdkafka   
 build  https://github.com/xenbo/kfkclient
 
-example:
+# Check with command pkg-config  
+[dongbo@localhost]$ pkg-config --list-all |grep syrdkafka  
+syrdkafka              libsyrdkafka - The syKafka C/C++ library  
 
-mkdir /home/user/lib
+# run
+cd go_kfk_client/example/kfk_example  
+go build kfk_example3.go  
 
-cp libsyrdkafka.a /home/user/lib
-
-export LD_LIBRARY_PATH=LD_LIBRARY_PATH:/home/user/lib
 
