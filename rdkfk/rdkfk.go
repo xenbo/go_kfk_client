@@ -1,9 +1,10 @@
 package rdkfk
 
 /*
-#cgo CXXFLAGS: -std=c++17
-#cgo linux  LDFLAGS:  -L ../lib -lsyrdkafka  -ldl -lm -lz -lstdc++fs -lstdc++ -lpthread
-#cgo darwin LDFLAGS:  -L ../lib -lsyrdkafka  -ldl -lm -lz -lc++ -lpthread
+#cgo CXXFLAGS: -std=c++11
+#cgo pkg-config: syrdkafka
+#cgo linux  LDFLAGS:  -lsyrdkafka  -ldl -lm -lz -lstdc++ -lpthread
+#cgo darwin LDFLAGS:  -lsyrdkafka  -ldl -lm -lz -lc++ -lpthread
 #include "for_go.h"
 */
 import "C"
